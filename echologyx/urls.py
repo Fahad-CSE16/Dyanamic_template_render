@@ -11,6 +11,7 @@ from rest_framework_simplejwt.views import (TokenObtainPairView,TokenRefreshView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+from .async_code import *
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -29,6 +30,8 @@ urlpatterns = [
 
     #  API for Getting Token for Authentication
     path('token-login/', views.obtain_auth_token),
+    path("async/", async_view),
+    path("sync/", sync_view),
 
     # Api for JWT Token Authentication
     path('jwt-login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
