@@ -6,7 +6,7 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '9u0jy3kai74q&aue74xi*%r9z5wp-s&mjk!e(kqlm$&ah8umq$'
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -89,23 +89,23 @@ REST_FRAMEWORK = {
     )
 }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'USER': 'postgres',
-#         'PASSWORD':'postgres',
-#         'NAME': 'postgres',
-#         'HOST': 'db', # for docker
-#         # 'HOST': 'localhost', # fow without docker
-#         'PORT': 5432
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'USER': 'echologyx',
+        'PASSWORD':'12345',
+        'NAME': 'echologyx',
+        'HOST': 'db', # for docker
+        # 'HOST': 'localhost', # fow without docker
+        'PORT': 5432
+    }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -169,4 +169,65 @@ SIMPLE_JWT = {
 
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
 
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'filters': {
+        # 'special': {
+        #     '()': 'main.logging.SpecialFilter',
+        #     'foo': 'bar',
+        # },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'WARNING',
+            'filters': ['require_debug_true'],
+            'class': 'logging.FileHandler',
+            'filename': 'django_log.log',
+            'formatter': 'verbose'
+        },
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            # 'filters': ['special']
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'propagate': True,
+            'level': 'DEBUG',
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'myproject.custom': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'INFO',
+            # 'filters': ['special']
+        }
+    }
 }

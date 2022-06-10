@@ -25,6 +25,7 @@ def post_list(request):
         template = PostListTemplate.objects.filter(is_active=True).first().template
     except:
         template = "<h1>NO Template has been Selected to Render!</h1>"
+        template_name = 'blogpost/post/list_transparent.html'
     with open('templates/blogpost/dynamic.html', 'w') as f:
         f.write(template)
         f.close()

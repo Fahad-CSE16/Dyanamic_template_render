@@ -1,5 +1,5 @@
 from django.utils.decorators import method_decorator
-
+import logging
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -9,6 +9,7 @@ from blogpost.api.serializers import BlogPostLiteSerializer, BlogPostSerializer
 from blogpost.filters import BlogPostFilter
 from blogpost.decorators import exception_handler
 from blogpost.permissions import IsOwner
+logger = logging.getLogger('django_log')
 
 
 class BlogPostListCreateAPIView(ListCreateAPIView):
@@ -21,6 +22,7 @@ class BlogPostListCreateAPIView(ListCreateAPIView):
     @method_decorator(exception_handler)
     def create(self, request, *args, **kwargs):
         request.data['created_by'] = self.request.user.id
+        logger.info('New Blog Created')
         return super(BlogPostListCreateAPIView, self).create(request, *args, **kwargs)
 
 

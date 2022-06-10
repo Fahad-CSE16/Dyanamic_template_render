@@ -3,12 +3,13 @@ version: "3"
 services:
   db:
     image: postgres
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=echologyx
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=echologyx
+      - POSTGRES_HOST=localhost
+    ports:
+      - 5433:5432
   web:
     container_name: echologyx
     build:
