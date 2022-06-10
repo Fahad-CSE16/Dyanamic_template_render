@@ -64,6 +64,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'USER': 'postgres',
+#         'PASSWORD':'postgres',
+#         'NAME': 'postgres',
+#         'HOST': 'db', # for docker
+#         # 'HOST': 'localhost', # fow without docker
+#         'PORT': 5432
+#     }
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
