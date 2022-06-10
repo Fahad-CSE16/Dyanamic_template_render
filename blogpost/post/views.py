@@ -54,7 +54,7 @@ def post_detail(request, pk):
     item = BlogPost.objects.get(pk=pk)
     context = {
         'item': item, 
-        'comments':item.postcomment_set.filter(is_active=True)
+        'comments':item.postcomment_set.filter(is_active=True).select_related('created_by', 'post')
     }
     return render(request, template_name, context)
 
