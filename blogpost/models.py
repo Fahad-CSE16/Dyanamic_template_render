@@ -23,10 +23,10 @@ class BlogPost(models.Model):
 
 
 class PostComment(models.Model):
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     post = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
     text = models.CharField(max_length=500)
     is_active = models.BooleanField(default=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
 

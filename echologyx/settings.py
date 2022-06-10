@@ -1,5 +1,8 @@
 from pathlib import Path
 import os
+from datetime import timedelta
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '9u0jy3kai74q&aue74xi*%r9z5wp-s&mjk!e(kqlm$&ah8umq$'
 DEBUG = True
@@ -14,7 +17,11 @@ DJANGO_APPS = [
     'django.contrib.humanize',
 ]
 THIRD_PARTY = [
+    'rest_framework',
+    'rest_framework.authtoken',
     'crispy_forms',
+    'django_filters',
+    'rest_framework_simplejwt',
 ]
 LOCAL_APPS = [
     'userapp',
@@ -23,10 +30,8 @@ LOCAL_APPS = [
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY + LOCAL_APPS
 if DEBUG:
-    INSTALLED_APPS += ['django_extensions', 'debug_toolbar']
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+    INSTALLED_APPS += ['django_extensions', 'debug_toolbar', 'drf_yasg']
+    
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -38,6 +43,9 @@ MIDDLEWARE = [
 ]
 if DEBUG:
     MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+    import socket
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[:-1] + '1' for ip in ips] + ['127.0.0.1', '192.168.0.156']
 
 ROOT_URLCONF = 'echologyx.urls'
 
@@ -58,6 +66,29 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'echologyx.wsgi.application'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
+    'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler',
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    )
+}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -110,3 +141,32 @@ EMAIL_HOST_PASSWORD = 'dbhlfqelbumhpeno'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'OTF Team <email@gmail.com>'
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': False,
+
+    'ALGORITHM': 'HS256',
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+    'JWK_URL': None,
+    'LEEWAY': 0,
+
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+
+}
