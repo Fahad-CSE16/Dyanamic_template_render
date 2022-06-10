@@ -31,7 +31,7 @@ urlpatterns = [
     path('token-login/', views.obtain_auth_token),
 
     # Api for JWT Token Authentication
-    path('token/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('jwt-login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('', include('userapp.urls')),
     path('blogpost/', include('blogpost.urls')),
