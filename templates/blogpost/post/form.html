@@ -1,0 +1,32 @@
+{% extends 'basic.html' %}
+{% block title%} {{title}}{% endblock %}
+{% block body %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% if user.is_authenticated %}
+<div class="container" style="box-shadow: 0 4px 50px 0 rgb(249 235 235 / 20%), 0 6px 50px 0 rgb(227 215 215 / 19%);">
+    <div class="row">
+        <div class="col-md-8 offset-md-2 py-3" style="font-family:Lobster; font-size:2rem;" >
+            <form method="post">
+                {% csrf_token %}
+                <fieldset class="form-group mx-auto">
+                    {{ form|crispy }}
+                </fieldset>
+                <button class="btn btn-primary" type="submit" style="width:100%; font-size:1.5rem;">POST</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<h2>Please <a href="/profile/login/">Login</a> to Create a Post</h2>
+{% endif %}
+{% endblock body %}
+{% block css %}
+textarea.form-control {
+    height: auto;
+    width:100%;
+    color:white;
+    background: none;
+    }
+{% endblock  %}

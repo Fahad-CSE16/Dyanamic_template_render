@@ -1,0 +1,71 @@
+{% extends 'basic.html' %}
+{% block title %}
+Login
+{% endblock %}
+
+{% block Login %}
+active
+{% endblock Login %}
+{% block body %}
+{% load crispy_forms_tags %}
+{% load static %}
+<div class="container">
+ {% comment %} background:#161313; background:#2a2a2a;  {% endcomment %}
+
+    <div class="row" style=" background:none;
+    box-shadow: 0 4px 50px 0 rgb(249 235 235 / 20%), 0 6px 50px 0 rgb(227 215 215 / 19%);">
+    <div class="col-md-6">
+    <div class="img">
+        <img src="{% static 'img/avatar.svg' %}">
+    </div>
+    </div>
+   
+
+    <div class="col-md-4 offset-md-2" >
+        <div class="container bordered">
+            {% if form.errors %}
+            <p>Your username and password didn't match. Please try again.</p>
+            {% endif %}
+
+            {% if next %}
+            {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed,
+                please login with an account that has access.</p>
+            {% else %}
+            <p>Please login to see this page.</p>
+            {% endif %}
+            {% endif %}
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                {% comment %} <img src="{% static 'img/avatar.svg' %}" class="d-block m-auto pt-2"> {% endcomment %}
+                <h1 class="pt-5 text-center" style="
+                        text-shadow: 0 1px 2px white, 0 0 25px white, 0 0 5px white;
+                    color: blue;
+                        ">Login</h1>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Password">
+                </div>
+                <button class="btn btn-primary" style="width:100%;" type="submit" value="submit">Login</button>
+            </form>
+            <p class="text-center py-4">
+                <a style="text-align:center;" href="{% url 'register' %}">Register New Account</a>
+            </p>
+        </div>
+    </div>
+     </div>
+</div>
+{% endblock %}
+{% block css %}
+.form-control:hover{
+background-color: rgb(99, 68, 128);
+color:aliceblue;
+}
+.form-control{
+background:none;
+}
+{% endblock css %}

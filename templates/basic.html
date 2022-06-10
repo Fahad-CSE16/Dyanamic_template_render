@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Echologyx | {% block title %}{{title}}{% endblock title %}</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href=" {% static 'img/favicon.ico' %} ">
+
+    <link rel="stylesheet" href=" {% static 'style.css' %}"> 
+
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex@3.5.1/dist/vuex.js"></script> {% endcomment %}
+  	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Stick No Bills|Sofia|Roboto|Sevillana|Tangerine|Lobster&display=swap:wght@700">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+    @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+    body{
+      overflow-x:hidden;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    body::-webkit-scrollbar {
+      display: none;
+    }
+{% block css %}{% endblock css %}
+</style>
+
+<body style="background:#282121; color:white; background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url(/media/bg.jpg);background-size:cover;background-attachment:fixed;background-position:top">
+    {% include 'components/header.html' %}
+
+    {% comment %} Div for Showing Messages {% endcomment %}
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 pt-4">
+        <div class=" pt-5">
+          {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-red"
+               role="alert">
+              <strong>{{ message }}</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true"><i class="fa fa-trash"></i></span>
+              </button>
+          </div>
+      {% endfor %}
+        </div>
+      </div>
+    </div>
+  
+  <br>
+    
+
+     {% block body %}{% endblock body %}
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.1.0/autoNumeric.min.js" integrity="sha512-U0/lvRgEOjWpS5e0JqXK6psnAToLecl7pR+c7EEnndsVkWq3qGdqIGQGN2qxSjrRnCyBJhoaktKXTVceVG2fTw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% block js %}{% endblock js %}
+</html>
