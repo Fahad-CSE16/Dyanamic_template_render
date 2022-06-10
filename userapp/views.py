@@ -20,8 +20,6 @@ User = get_user_model()
 
 
 def post_list(request):
-    
-
     template_name = 'blogpost/dynamic.html'
     try:
         template = PostListTemplate.objects.filter(is_active=True).first().template
