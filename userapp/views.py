@@ -30,8 +30,8 @@ def post_list(request):
     with open('templates/blogpost/dynamic.html', 'w') as f:
         f.write(template)
         f.close()
-    posts=BlogPost.objects.all().order_by('-created_at').prefetch_related(
-        Prefetch('postcomment_set', queryset=PostComment.objects.filter()))
+    posts=BlogPost.objects.all().order_by('-created_at').select_related('created_by').prefetch_related(
+        Prefetch('postcomment_set__created_by', queryset=PostComment.objects.filter()))
     page=request.GET.get('page', 1)
     paginator=Paginator(posts, 5)
     try:

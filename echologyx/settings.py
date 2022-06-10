@@ -24,7 +24,9 @@ LOCAL_APPS = [
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY + LOCAL_APPS
 if DEBUG:
     INSTALLED_APPS += ['django_extensions', 'debug_toolbar']
-
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

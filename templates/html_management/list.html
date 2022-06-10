@@ -1,0 +1,94 @@
+{% extends 'basic.html' %}
+{% block title%} {{title}}{% endblock %}
+{% block body %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% if user.is_authenticated %}
+<div class="container" style="box-shadow: 0 4px 50px 0 rgb(249 235 235 / 20%), 0 6px 50px 0 rgb(227 215 215 / 19%);">
+    <div class="row p-2">
+        <h1 class="text-center">Templates List</h1>
+                <div class="table-responsive p-5" id="app">
+                    <table id="data-table1" class="table table-striped table-bordered text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th class="wd-15p">Name</th>
+                                <th class="wd-15p">Is Active</th>
+                                <th class="wd-15p">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items %}
+                                <tr class="text-center">
+                                    <td class="text-left">{{ item.name }}</td>
+                                    <td class="text-left">{{ item.is_active }}</td>
+                                    <td class="text-left">
+                                        <a @click="activate_item({{item.id}})" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter">Activate Now
+                                    </a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <!-- Modal -->
+        <div class="modal fade text-dark" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Activate Template</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body ">
+                    <h5>Are you sure to Activate? <br> Remember, others will be deactivated! </h5>
+                    <a class="btn btn-secondary" :href="href">Yes </a>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            </div>
+        </div>
+                </div>
+            </div>
+       
+</div>
+
+{% else %}
+<h2>Please <a href="/profile/login/">Login</a> to Create a Post</h2>
+{% endif %}
+{% endblock body %}
+{% block css %}
+textarea.form-control {
+    height: auto;
+    width:100%;
+    color:white;
+    background: none;
+    }
+{% endblock  %}
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vuex@3.5.1/dist/vuex.js"></script>
+<script>
+    var app = new Vue({
+      el: "#app",
+      delimiters: ["[[", "]]"],
+      data() {
+        return {
+          id:null,
+          href: null
+        };
+      },
+      mounted() {
+        console.log("mounted");
+      },
+      methods: {
+        activate_item(index) {
+          var that = this;
+            this.id = index;
+            this.href = "/html_management/activate/" + index + "/"
+        },
+      },
+    });
+</script>
+{% endblock js %}
+
