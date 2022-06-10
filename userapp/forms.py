@@ -19,6 +19,14 @@ class RegisterForm(forms.ModelForm):
             raise forms.ValidationError("email is taken")
         return email
 
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone', None)
+        try:
+            int(phone)
+        except (ValueError, TypeError):
+            raise forms.ValidationError('Please enter a valid phone number')
+        return phone
+
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
