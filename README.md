@@ -8,6 +8,12 @@
 - then ` python manage.py migrate`
 - then ` python manage.py createsuperuser`
 
+### For api Documentations
+
+```
+http://127.0.0.1:8000/swagger/
+```
+
 
 ### Postman Test setup COde
 

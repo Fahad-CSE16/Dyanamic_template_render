@@ -102,7 +102,7 @@ DATABASES = {
         'PASSWORD':'12345',
         'NAME': 'echologyx',
         'HOST': 'db', # for docker
-        # 'HOST': 'localhost', # fow without docker
+        # 'HOST': 'localhost', # for without docker
         'PORT': 5432
     }
 }
