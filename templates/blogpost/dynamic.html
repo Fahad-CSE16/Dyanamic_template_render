@@ -4,16 +4,16 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% load humanize %}
-<div class="container  text-white">
+<div class="container">
     <div class="row">
         <div class="col-md-10 offset-md-1">
         {% if user.is_authenticated %}
             {% for item in posts %}
-            <div class="jumbotron  text-white bg-transparent " style="box-shadow: 0 4px 50px 0 rgb(249 235 235 / 20%), 0 6px 50px 0 rgb(227 215 215 / 19%);">
+            <div class="jumbotron  text-dark" style="box-shadow: 0 4px 50px 0 rgb(249 235 235 / 20%), 0 6px 50px 0 rgb(227 215 215 / 19%);">
                 <a href="{% url 'blogpost_detail' item.id %}" role="button">
-                    <h1 class="display-4 text-white">{{item.title}}</h1>
+                    <h1 class="display-4 text-dark">{{item.title}}</h1>
                 </a>
-                <p class="lead  text-white">
+                <p class="lead  text-dark">
                     {% if item.created_by %}
                     <b>{{item.created_by.first_name}} {{item.created_by.last_name}}</b>
                     {% else %}
@@ -23,6 +23,7 @@
                     {{item.created_at|naturaltime}}</span></p>
                 <hr class="my-4">
                 <p>{{item.details|truncatechars:100}}</p>
+                {% if item.postcomment_set.all %}
                 <div class="py-2"> <h4>Comments</h4></div>
                 {% for comment in item.postcomment_set.all|slice:":3" %}
                 <div class="row my-3 ">
@@ -43,6 +44,7 @@
                         </div>
                 </div>
                 {% endfor %}
+                {% endif %}
             </div>
             {% endfor %}
             {% include 'components/pagination.html' with items=posts %}

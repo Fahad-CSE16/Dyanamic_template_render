@@ -22,8 +22,11 @@
                                     <td class="text-left">{{ item.name }}</td>
                                     <td class="text-left">{{ item.is_active }}</td>
                                     <td class="text-left">
+                                        {% if item.is_active %}
+                                        {% else %}
                                         <a @click="activate_item({{item.id}})" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter">Activate Now</a>
                                         <a @click="delete_item({{item.id}})" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenterDelete"><i class="fa fa-trash"></i></a>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}
