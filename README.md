@@ -1,4 +1,10 @@
 #  To Run the project
+
+#### for console Sent email just place this code in settings.py
+
+```
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+```
 ## Prerequisites
 
 - install Docker and docker compose
