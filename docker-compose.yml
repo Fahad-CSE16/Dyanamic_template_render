@@ -4,14 +4,14 @@ services:
   db:
     image: postgres
     environment:
-      - POSTGRES_USER=echologyx
-      - POSTGRES_PASSWORD=12345
-      - POSTGRES_DB=echologyx
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=myproject
       - POSTGRES_HOST=localhost
     ports:
       - 5433:5432
   web:
-    container_name: echologyx
+    container_name: myproject
     build:
       context: .
       dockerfile: Dockerfile

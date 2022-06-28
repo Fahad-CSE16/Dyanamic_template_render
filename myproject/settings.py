@@ -47,7 +47,7 @@ if DEBUG:
     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
     INTERNAL_IPS = [ip[:-1] + '1' for ip in ips] + ['127.0.0.1', '192.168.0.156']
 
-ROOT_URLCONF = 'echologyx.urls'
+ROOT_URLCONF = 'myproject.urls'
 
 TEMPLATES = [
     {
@@ -65,7 +65,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'echologyx.wsgi.application'
+WSGI_APPLICATION = 'myproject.wsgi.application'
 
 
 REST_FRAMEWORK = {
@@ -98,9 +98,9 @@ REST_FRAMEWORK = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'USER': 'echologyx',
-        'PASSWORD':'12345',
-        'NAME': 'echologyx',
+        'USER': 'postgres',
+        'PASSWORD':'postgres',
+        'NAME': 'myproject',
         'HOST': 'db', # for docker
         # 'HOST': 'localhost', # for without docker
         'PORT': 5432

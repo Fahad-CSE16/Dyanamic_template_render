@@ -9,7 +9,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 - install Docker and docker compose
 - run `docker-compose up --build --remove-orphans`
-- in separate terminal run `sudo docker exec -it echologyx sh`
+- in separate terminal run `sudo docker exec -it myproject sh`
 - in the docker shell run `python manage.py makemigrations`
 - then ` python manage.py migrate`
 - then ` python manage.py createsuperuser`

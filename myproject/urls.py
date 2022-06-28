@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from echologyx.settings import DEBUG
+from myproject.settings import DEBUG
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import permissions
@@ -14,7 +14,7 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Echologyx API",
+      title="myproject API",
       default_version='v1.0',
       description="Api description",
       contact=openapi.Contact(email="mdfahadhossain71@gmail.com"),
